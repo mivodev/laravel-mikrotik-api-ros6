@@ -29,15 +29,15 @@ return [
     'connections' => [
 
         'default' => [
-            'host'     => env('MIKROTIK_ROS6_HOST', '192.168.1.1'),
+            'host' => env('MIKROTIK_ROS6_HOST', '192.168.1.1'),
             'username' => env('MIKROTIK_ROS6_USERNAME', 'admin'),
             'password' => env('MIKROTIK_ROS6_PASSWORD', ''),
-            'port'     => env('MIKROTIK_ROS6_PORT', 8728),
-            'ssl'      => env('MIKROTIK_ROS6_SSL', false),
-            'timeout'  => env('MIKROTIK_ROS6_TIMEOUT', 3),
+            'port' => env('MIKROTIK_ROS6_PORT', 8728),
+            'ssl' => env('MIKROTIK_ROS6_SSL', false),
+            'timeout' => env('MIKROTIK_ROS6_TIMEOUT', 3),
             'attempts' => env('MIKROTIK_ROS6_ATTEMPTS', 3),
-            'delay'    => env('MIKROTIK_ROS6_DELAY', 1),
-            'debug'    => env('MIKROTIK_ROS6_DEBUG', false),
+            'delay' => env('MIKROTIK_ROS6_DELAY', 1),
+            'debug' => env('MIKROTIK_ROS6_DEBUG', false),
         ],
 
     ],

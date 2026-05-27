@@ -6,19 +6,16 @@ namespace Mivo\LaravelMikrotikRos6;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Mivo\MikrotikRos6\Client;
 
 class MikrotikRos6ServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/mikrotik-ros6.php',
+            __DIR__.'/../config/mikrotik-ros6.php',
             'mikrotik-ros6'
         );
 
@@ -32,14 +29,12 @@ class MikrotikRos6ServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/mikrotik-ros6.php' => config_path('mikrotik-ros6.php'),
+                __DIR__.'/../config/mikrotik-ros6.php' => config_path('mikrotik-ros6.php'),
             ], 'mikrotik-ros6-config');
         }
     }

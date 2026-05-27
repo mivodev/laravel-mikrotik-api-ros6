@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mivo\LaravelMikrotikRos6\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Mivo\LaravelMikrotikRos6\MikrotikManager;
 use Mivo\MikrotikRos6\Client;
 
 /**
@@ -16,15 +17,13 @@ use Mivo\MikrotikRos6\Client;
  * @method static bool isConnected()
  * @method static array comm(string $command, array $params = [])
  *
- * @see \Mivo\LaravelMikrotikRos6\MikrotikManager
- * @see \Mivo\MikrotikRos6\Client
+ * @see MikrotikManager
+ * @see Client
  */
 class MikrotikRos6 extends Facade
 {
     /**
      * Get the registered name of the component.
-     *
-     * @return string
      */
     protected static function getFacadeAccessor(): string
     {

@@ -37,7 +37,6 @@ class MikrotikManager
      * Get a Mikrotik connection instance.
      *
      * @param  string|array|null  $name  Connection name (string) or dynamic configuration (array).
-     * @return Client
      */
     public function connection(string|array|null $name = null): Client
     {
@@ -57,9 +56,6 @@ class MikrotikManager
 
     /**
      * Make the Mikrotik connection instance.
-     *
-     * @param  string  $name
-     * @return Client
      */
     protected function makeConnection(string $name): Client
     {
@@ -70,9 +66,6 @@ class MikrotikManager
 
     /**
      * Build a Client instance from an array of configuration.
-     *
-     * @param  array  $config
-     * @return Client
      */
     protected function makeClient(array $config): Client
     {
@@ -80,12 +73,12 @@ class MikrotikManager
             throw new InvalidArgumentException('Mikrotik connection must specify a host and username.');
         }
 
-        $client = new Client();
-        $client->timeout  = (int) ($config['timeout'] ?? 3);
+        $client = new Client;
+        $client->timeout = (int) ($config['timeout'] ?? 3);
         $client->attempts = (int) ($config['attempts'] ?? 3);
-        $client->delay    = (int) ($config['delay'] ?? 1);
-        $client->ssl      = (bool) ($config['ssl'] ?? false);
-        $client->debug    = (bool) ($config['debug'] ?? false);
+        $client->delay = (int) ($config['delay'] ?? 1);
+        $client->ssl = (bool) ($config['ssl'] ?? false);
+        $client->debug = (bool) ($config['debug'] ?? false);
 
         $client->connect(
             $config['host'],
@@ -99,9 +92,6 @@ class MikrotikManager
 
     /**
      * Get the configuration for a connection.
-     *
-     * @param  string  $name
-     * @return array
      */
     protected function configuration(string $name): array
     {
@@ -116,8 +106,6 @@ class MikrotikManager
 
     /**
      * Get the default connection name.
-     *
-     * @return string
      */
     public function getDefaultConnection(): string
     {
@@ -126,9 +114,6 @@ class MikrotikManager
 
     /**
      * Disconnect from the given connection and remove from cache.
-     *
-     * @param  string|null  $name
-     * @return void
      */
     public function purge(?string $name = null): void
     {
@@ -144,7 +129,7 @@ class MikrotikManager
      * Dynamically pass methods to the default connection.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
