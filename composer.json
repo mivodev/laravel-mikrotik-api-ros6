@@ -1,7 +1,6 @@
 {
     "name": "mivodev/laravel-mikrotik-api-ros6",
     "description": "Laravel wrapper for mivodev/mikrotik-api-ros6. Provides ServiceProvider, Facade, and config.",
-    "version": "0.1.0-dev",
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/mivodev/laravel-mikrotik-api-ros6",
@@ -20,6 +19,7 @@
     "authors": [
         {
             "name": "Mivodev",
+            "email": "mivo@dev.dyzulk.com",
             "homepage": "https://github.com/mivodev",
             "role": "Developer"
         }
