@@ -1,11 +1,33 @@
 {
     "name": "mivodev/laravel-mikrotik-api-ros6",
-    "description": "Laravel Wrapper for Mivo Enterprise Mikrotik API RouterOS v6",
+    "description": "Laravel wrapper for mivodev/mikrotik-api-ros6. Provides ServiceProvider, Facade, and config.",
+    "version": "0.1.0-dev",
     "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/mivodev/laravel-mikrotik-api-ros6",
+    "support": {
+        "issues": "https://github.com/mivodev/laravel-mikrotik-api-ros6/issues",
+        "source": "https://github.com/mivodev/laravel-mikrotik-api-ros6"
+    },
+    "keywords": [
+        "laravel",
+        "mikrotik",
+        "routeros",
+        "api",
+        "ros6",
+        "socket"
+    ],
+    "authors": [
+        {
+            "name": "Mivodev",
+            "homepage": "https://github.com/mivodev",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^8.2 | ^8.3",
-        "mivodev/mikrotik-api-ros6": "*@dev",
-        "illuminate/support": "^10.0 | ^11.0 | ^12.0 | ^13.0"
+        "php": "^8.2",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0 || ^13.0",
+        "mivodev/mikrotik-api-ros6": "*"
     },
     "autoload": {
         "psr-4": {
@@ -16,7 +38,12 @@
         "laravel": {
             "providers": [
                 "Mivo\\LaravelMikrotikRos6\\MikrotikRos6ServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "MikrotikRos6": "Mivo\\LaravelMikrotikRos6\\Facades\\MikrotikRos6"
+            }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
