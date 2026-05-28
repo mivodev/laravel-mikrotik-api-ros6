@@ -90,4 +90,3 @@ class RouterPingCommand extends Command
         }
     }
 }
-
