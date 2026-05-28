@@ -36,22 +36,51 @@ MIKROTIK_ROS6_ATTEMPTS=5
 
 ## Usage
 
-Use the `MikrotikRos6` facade to easily communicate with your routers anywhere in your Laravel app.
-
-### Using Default Connection
-
-By default, the Facade uses the connection defined in `.env`.
+### 1. Dedicated Service Managers (Sugar Syntax)
+Rather than executing raw CLI commands, you can use 22 dedicated service managers that cover all core ISP and network operations with clean, autocomplete-friendly PHP methods:
 
 ```php
 use Mivo\LaravelMikrotikRos6\Facades\MikrotikRos6;
 
-// Execute commands on the default router
-$users = MikrotikRos6::comm('/ip/hotspot/user/print');
+// 1. Hotspot Management
+$users = MikrotikRos6::hotspot()->getUsers();
+MikrotikRos6::hotspot()->addUser([
+    'name' => 'dyzulk',
+    'password' => 'secret123',
+    'profile' => 'Premium-1M'
+]);
+
+// 2. PPPoE Secret Management
+$activeSessions = MikrotikRos6::pppoe()->getActive();
+MikrotikRos6::pppoe()->disconnect('customer_123'); // Disconnects session by print-lookup + remove
+
+// 3. Simple Queues (Bandwidth Limiting)
+MikrotikRos6::queue()->addSimpleQueue([
+    'name' => 'customer_123_limit',
+    'target' => '192.168.88.10',
+    'max-limit' => '1M/2M'
+]);
+
+// 4. Dual-Stack IPv4 / IPv6 Support
+MikrotikRos6::ipAddress()->addV6('2001:db8::1/64', 'ether1'); // IPv6 Address assignment
+MikrotikRos6::firewall()->addV6AddressList('blocked', '2001:db8::2'); // IPv6 address list isolation
 ```
 
-### Hybrid Multi-Tenant Connections
+Available managers: `arp()`, `bridge()`, `dhcp()`, `dns()`, `firewall()`, `hotspot()`, `interfaces()`, `ipAddress()`, `ipPool()`, `ntp()`, `pppoe()`, `queue()`, `radius()`, `routes()`, `routerUsers()`, `scripts()`, `sessionMonitor()`, `syslog()`, `system()`, `usageTracker()`, `vpn()`, `wireless()`.
 
-For SaaS platforms like **Mivo Enterprise**, you don't store router credentials in `.env`. Instead, you retrieve them dynamically from your database. The Manager supports passing an array directly to establish a dynamic, cached connection:
+### 2. Fluent Query Builder
+Execute targeted query commands easily using fluent builder syntax:
+
+```php
+$users = MikrotikRos6::query('/ip/hotspot/user/print')
+    ->where('profile', 'Premium-1M')
+    ->whereRegex('name', '^dyzulk')
+    ->select(['name', 'limit-uptime'])
+    ->get();
+```
+
+### 3. Hybrid Multi-Tenant Connections
+Perfect for SaaS applications (like Mivo Enterprise) where router credentials are retrieved dynamically from the database:
 
 ```php
 use App\Models\Router;
@@ -59,7 +88,7 @@ use Mivo\LaravelMikrotikRos6\Facades\MikrotikRos6;
 
 $router = Router::find(1);
 
-// Build connection dynamically from database model
+// Establish dynamic connection from database model
 $client = MikrotikRos6::connection([
     'host'     => $router->vpn_assigned_ip,
     'username' => $router->api_username,
@@ -67,16 +96,19 @@ $client = MikrotikRos6::connection([
     'port'     => 8728,
 ]);
 
-// Execute command on that specific router
-$activeUsers = $client->comm('/ip/hotspot/active/print');
-
-// Disconnect from the specific router
-$client->disconnect();
+// Use any service manager on this specific router
+$users = $client->hotspot()->getUsers();
 ```
 
-### Advanced Examples
+---
 
-See the [core package documentation](https://github.com/mivodev/mikrotik-api-ros6) for full usage of the `comm()` method, including filtering, regex, and error handling.
+## 4. Artisan Diagnosis Command
+Diagnose and ping router connections easily using the Artisan tool:
+
+```bash
+# Ping using a database Router ID
+php artisan mivo:ros6-ping 1
+```
 
 ## License
 
