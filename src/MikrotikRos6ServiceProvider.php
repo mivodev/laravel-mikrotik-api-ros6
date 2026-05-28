@@ -36,6 +36,10 @@ class MikrotikRos6ServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/mikrotik-ros6.php' => config_path('mikrotik-ros6.php'),
             ], 'mikrotik-ros6-config');
+
+            $this->commands([
+                Console\Commands\RouterPingCommand::class,
+            ]);
         }
     }
 }
